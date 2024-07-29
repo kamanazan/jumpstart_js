@@ -5,9 +5,13 @@ body {
     padding: 20px;
 }
 ul {
-    list-style-type: none;
+    list-style-type: circle;
     padding: 0;
 }
 li {
     margin-bottom: 10px;
+}
+
+.todo-complete {
+    text-decoration: line-through;
 }

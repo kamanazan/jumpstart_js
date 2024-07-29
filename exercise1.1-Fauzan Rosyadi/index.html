@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive User Greeting</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h2>Welcome!</h2>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button onclick="greetUser()">Greet Me</button>
+    <div class="error-msg hide" id="nameInput-error"></div>
+    <div id="greeting"></div>
+</div>
+
+<script>
+  function greetUser() {
+    const inputField = document.querySelector('#nameInput');
+    const greetField = document.querySelector('#greeting');
+    const inputError = document.querySelector('#nameInput-error');
+
+    inputField.classList.remove('input-error');
+    inputError.classList.add('hide');
+    inputError.textContent = '';
+    greetField.textContent = '';
+
+    const user = inputField.value;
+    if (user) {
+      const hour = new Date().getHours();
+      let greetTime
+     if (hour >= 6 && hour <=11){
+       greetTime = 'Good Morning'
+     } else if (hour >=12 && hour <=16) {
+       greetTime = 'Good Afternoon'
+     } else if (hour >=17 && hour <=19){
+       greetTime = 'Good Evening'
+     } else {
+       greetTime = 'Good Night'
+     }
+      greetField.textContent = `${greetTime}, ${user}`;
+    }
+    else {
+      inputField.classList.add('input-error');
+      inputError.classList.remove('hide');
+      inputError.textContent = 'Please input any value';
+    }
+  }
+</script>
+</body>
+</html>

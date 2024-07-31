@@ -11,6 +11,20 @@
 <input type="text" id="todoInput" placeholder="Enter a new task">
 <button onclick="addTodo()">Add Task</button>
 <ul id="todoList"></ul>
-<script src="script.js"></script>
+
+
+<template id="contentTodo">
+    <li>
+
+            <span></span>
+            <button id="editButton">Edit</button>
+            <input type="text" id="todoEdit" class="hide">
+            <button id="saveButton">Save</button>
+            <button id="completeButton">mark complete</button>
+            <button id="removeButton">remove</button>
+
+    </li>
+</template>
 </body>
+<script src="script.js"></script>
 </html>

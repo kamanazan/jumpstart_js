@@ -15,3 +15,15 @@ li {
 .todo-complete {
     text-decoration: line-through;
 }
+
+.input-readonly {
+    border: none;
+}
+
+.input-edit {
+    border: 3px solid black;
+}
+
+.hide {
+    display: none;
+}

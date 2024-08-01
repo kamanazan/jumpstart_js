@@ -1,27 +1,62 @@
 const todoInput = document.querySelector('#todoInput');
 const todoList = document.querySelector('#todoList');
 const template = document.querySelector('#contentTodo');
+const savedTodo = window.localStorage.getItem('todoList');
 
+function restoreTodoList() {
+  const todoList = JSON.parse(savedTodo);
+  todoList.forEach(t => {
+    createElement(t[0], t[1]);
+  })
+}
+
+// DOMContentLoaded may fire before your script has a chance to run, so it is wise to check before adding a listener.
+if (document.readyState === "loading") {
+  // Loading hasn't finished yet
+  document.addEventListener("DOMContentLoaded", restoreTodoList);
+} else {
+  // `DOMContentLoaded` has already fired
+  restoreTodoList();
+}
+
+function updateStorage() {
+  const todo = document.querySelector('#todoList');
+  const todoList = todo.querySelectorAll('li span');
+  const data = [];
+  todoList.forEach(t => {
+    data.push([t.textContent, t.classList.contains('todo-complete')])
+  });
+  window.localStorage.setItem('todoList', JSON.stringify(data));
+}
+
+function createElement(newTodo, isComplete) {
+  const newTodoList = template.content.cloneNode(true)  //document.createElement('li');
+  const span = newTodoList.querySelector('span')
+  const input = newTodoList.querySelector('input');
+  const saveBtn = newTodoList.querySelector('#saveButton');
+  const editBtn = newTodoList.querySelector('#editButton');
+  const completeBtn = newTodoList.querySelector('#completeButton');
+  const removeBtn = newTodoList.querySelector('#removeButton');
+  if (isComplete) {
+    span.classList.add('todo-complete');
+    completeBtn.textContent = 'unmark';
+  }
+  input.classList.add('hide');
+  saveBtn.classList.add('hide');
+  span.textContent = newTodo;
+  completeBtn.onclick = markComplete;
+  removeBtn.onclick = removeTodo;
+  editBtn.onclick = editTodo;
+  saveBtn.onclick = saveTodo;
+  todoList.appendChild(newTodoList);
+  todoInput.value = '';
+}
 function addTodo() {
   const newTodo = todoInput.value;
   console.log(newTodo)
   if (newTodo){
-    const newTodoList = template.content.cloneNode(true)  //document.createElement('li');
-    const span = newTodoList.querySelector('span')
-    const input = newTodoList.querySelector('input');
-    const saveBtn = newTodoList.querySelector('#saveButton');
-    const editBtn = newTodoList.querySelector('#editButton');
-    const completeBtn = newTodoList.querySelector('#completeButton');
-    const removeBtn = newTodoList.querySelector('#removeButton');
-    input.classList.add('hide');
-    saveBtn.classList.add('hide');
-    span.textContent = newTodo;
-    completeBtn.onclick = markComplete;
-    removeBtn.onclick = removeTodo;
-    editBtn.onclick = editTodo;
-    saveBtn.onclick = saveTodo;
-    todoList.appendChild(newTodoList);
-    todoInput.value = '';
+    createElement(newTodo, false);
+    updateStorage();
   }
 }
 
@@ -35,6 +70,7 @@ function markComplete(event) {
     content.classList.add('todo-complete');
     button.textContent = 'unmark';
   }
+  updateStorage();
 }
 
 
@@ -42,6 +78,7 @@ function removeTodo(event) {
   const button = event.target;
   const parent = button.parentNode;
   parent.remove();
+  updateStorage();
 }
 
 function editTodo(event) {
@@ -81,4 +118,5 @@ function saveTodo(event) {
   editBtn.classList.remove('hide');
   completeBtn.classList.remove('hide');
   removeBtn.classList.remove('hide');
+  updateStorage();
 }

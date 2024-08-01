@@ -40,6 +40,7 @@ function createElement(newTodo, isComplete) {
   if (isComplete) {
     span.classList.add('todo-complete');
     completeBtn.textContent = 'unmark';
+    editBtn.classList.add('hide');
   }
   input.classList.add('hide');
   saveBtn.classList.add('hide');
@@ -63,11 +64,14 @@ function addTodo() {
 function markComplete(event) {
   const button = event.target;
   const content = button.parentNode.querySelector('span');
+  const editBtn = button.parentNode.querySelector('#editButton');
   if (content.classList.contains('todo-complete')) {
     content.classList.remove('todo-complete');
+    editBtn.classList.remove('hide');
     button.textContent = 'mark complete'
   } else {
     content.classList.add('todo-complete');
+    editBtn.classList.add('hide');
     button.textContent = 'unmark';
   }
   updateStorage();

@@ -1,6 +1,6 @@
 // main.js
 import { getComputerChoice, playRound } from './game.js';
-import { updateScore, updateMessage } from './ui.js';
+import { updateScore, updateMessage, resetGame } from './ui.js';
 
 // TODO: Select DOM elements
 
@@ -13,6 +13,8 @@ document.querySelectorAll('button.choice').forEach( node => {
     game(choice);
   })
 })
+
+document.querySelector('#reset-game').addEventListener('click', resetGame);
 // Main game logic
 function game(playerChoice) {
   const computerChoice = getComputerChoice();

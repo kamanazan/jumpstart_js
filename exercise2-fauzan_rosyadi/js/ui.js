@@ -26,3 +26,11 @@ export function updateMessage(result, playerChoice, computerChoice) {
   computerChoiceContainer.textContent = choiceIcon[computerChoice];
  
 }
+
+export function resetGame() {
+  playerScoreContainer.textContent = '0';
+  computerScoreContainer.textContent = '0'
+  resultContainer.textContent = '';
+  playerChoiceContainer.textContent = '';
+  computerChoiceContainer.textContent = '';
+}

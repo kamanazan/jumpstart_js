@@ -36,3 +36,11 @@ export function playRound(playerChoice, computerChoice) {
     console.error(playerChoice);
   }
 }
+
+export function hasWinner(playerScore, computerScore) {
+  if ((playerScore === 3) || (computerScore === 3)) {
+    return playerScore === 3 ? 1 : 2;
+  } else {
+    return 0
+  }
+}

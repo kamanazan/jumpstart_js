@@ -8,7 +8,9 @@ const choiceIcon = {
 }
 const playerScoreContainer = document.querySelector('#player-score');
 const computerScoreContainer = document.querySelector('#computer-score');
-const resultContainer = document.querySelector('#message');
+const resultContainer = document.querySelector('#result-message');
+const finalContainer = document.querySelector('#result-final');
+const choicesContainer = document.querySelector('.choices');
 const playerChoiceContainer = document.querySelector('#player-choice');
 const computerChoiceContainer = document.querySelector('#computer-choice');
 
@@ -34,8 +36,18 @@ export function resetGame() {
   playerScoreContainer.textContent = '0';
   computerScoreContainer.textContent = '0'
   resultContainer.textContent = '';
+  finalContainer.textContent = '';
   playerChoiceContainer.textContent = '';
   computerChoiceContainer.textContent = '';
+  if (choicesContainer.classList.contains('hide')) {
+    choicesContainer.classList.remove('hide');
+  }
   window.localStorage.setItem('playerScore', 0);
   window.localStorage.setItem('computerScore', 0);
+}
+
+export function stopGame(condition) {
+  finalContainer.textContent = condition === 1 ? 'Player is the Winner' : 'Computer is the Winner';
+  resultContainer.textContent = 'Press RESET to play again';
+  choicesContainer.classList.add('hide');
 }

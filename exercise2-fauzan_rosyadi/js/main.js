@@ -1,17 +1,15 @@
 // main.js
-import { getComputerChoice, playRound } from './game.js';
-import { updateScore, updateMessage, resetGame } from './ui.js';
-
-// TODO: Select DOM elements
-
-// TODO: Initialize game variables
-const currentPlayerScore = parseInt(window.localStorage.getItem('playerScore') || '0');
-const currentComputerScore = parseInt(window.localStorage.getItem('computerScore') || '0');
-
-updateScore(currentPlayerScore, currentComputerScore);
+import { getComputerChoice, playRound, hasWinner } from './game.js';
+import { updateScore, updateMessage, resetGame, stopGame } from './ui.js';
 
 
-// TODO: Add event listeners to choice buttons
+const savedPlayerScore = parseInt(window.localStorage.getItem('playerScore') || '0');
+const savedComputerScore = parseInt(window.localStorage.getItem('computerScore') || '0');
+
+updateScore(savedPlayerScore, savedComputerScore);
+const check = hasWinner(savedPlayerScore, savedComputerScore);
+if (check > 0) stopGame(check);
+
 document.querySelectorAll('button.choice').forEach( node => {
   node.addEventListener('click', (event) => {
     const choice = event.target.dataset.choice;
@@ -38,4 +36,11 @@ function game(playerChoice) {
   }
   updateMessage(msg, playerChoice, computerChoice);
   updateScore(playerInc, computerInc);
+  
+  const currentPlayerScore = parseInt(window.localStorage.getItem('playerScore') || '0');
+  const currentComputerScore = parseInt(window.localStorage.getItem('computerScore') || '0');
+  const winningCondition = hasWinner(currentPlayerScore, currentComputerScore);
+  if (winningCondition > 0) {
+    stopGame(winningCondition)
+  }
 }

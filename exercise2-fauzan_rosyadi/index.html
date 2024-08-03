@@ -9,7 +9,7 @@
 <body>
 <div class="game-container">
     <h1>Rock Paper Scissors</h1>
-    <button id="reset-game">Reset</button>
+    <button id="reset-game">RESET</button>
     <div class="score-board">
         <div class="score">
             <p>Player: <span id="player-score">0</span></p>
@@ -21,7 +21,10 @@
         <button class="choice" data-choice="paper">✋</button>
         <button class="choice" data-choice="scissors">✌️</button>
     </div>
-    <div id="message"></div>
+    <div id="message">
+        <span id="result-final"></span>
+        <span id="result-message"></span>
+    </div>
     <div id='choice-result' class="choices">
         <span id='player-choice' class="choice" data-choice="scissors"></span>
         <span id='computer-choice' class="choice" data-choice="paper"></span>

@@ -15,9 +15,12 @@ const computerChoiceContainer = document.querySelector('#computer-choice');
 export function updateScore(playerScore, computerScore) {
   const playerValue = playerScoreContainer.textContent;
   const computerValue = computerScoreContainer.textContent;
-  
-  playerScoreContainer.textContent = parseInt(playerValue) + playerScore;
-  computerScoreContainer.textContent = parseInt(computerValue) + computerScore;
+  const newPlayerScore = parseInt(playerValue) + playerScore;
+  const newComputerScore = parseInt(computerValue) + computerScore;
+  playerScoreContainer.textContent = newPlayerScore;
+  computerScoreContainer.textContent = newComputerScore;
+  window.localStorage.setItem('playerScore', newPlayerScore);
+  window.localStorage.setItem('computerScore', newComputerScore);
 }
 
 export function updateMessage(result, playerChoice, computerChoice) {
@@ -33,4 +36,6 @@ export function resetGame() {
   resultContainer.textContent = '';
   playerChoiceContainer.textContent = '';
   computerChoiceContainer.textContent = '';
+  window.localStorage.setItem('playerScore', 0);
+  window.localStorage.setItem('computerScore', 0);
 }

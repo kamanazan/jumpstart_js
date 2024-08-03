@@ -5,6 +5,11 @@ import { updateScore, updateMessage, resetGame } from './ui.js';
 // TODO: Select DOM elements
 
 // TODO: Initialize game variables
+const currentPlayerScore = parseInt(window.localStorage.getItem('playerScore') || '0');
+const currentComputerScore = parseInt(window.localStorage.getItem('computerScore') || '0');
+
+updateScore(currentPlayerScore, currentComputerScore);
+
 
 // TODO: Add event listeners to choice buttons
 document.querySelectorAll('button.choice').forEach( node => {

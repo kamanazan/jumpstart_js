@@ -3,6 +3,8 @@ const todoList = document.querySelector('#todoList');
 const template = document.querySelector('#contentTodo');
 const savedTodo = window.localStorage.getItem('todoList');
 
+// TODO: implement filter
+
 function restoreTodoList() {
   const todoList = JSON.parse(savedTodo);
   todoList.forEach(t => {

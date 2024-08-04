@@ -1,5 +1,4 @@
 // ui.js
-import {playRound} from "./game.js";
 
 const choiceIcon = {
   'rock': '✊',
@@ -27,9 +26,17 @@ export function updateScore(playerScore, computerScore) {
 
 export function updateMessage(result, playerChoice, computerChoice) {
   resultContainer.textContent = result;
+  playerChoiceContainer.classList.remove('hide');
+  computerChoiceContainer.classList.remove('hide');
+  
+  playerChoiceContainer.classList.remove('player-animate');
+  computerChoiceContainer.classList.remove('computer-animate');
+  
   playerChoiceContainer.textContent = choiceIcon[playerChoice];
   computerChoiceContainer.textContent = choiceIcon[computerChoice];
- 
+  
+  playerChoiceContainer.classList.add('player-animate');
+  computerChoiceContainer.classList.add('computer-animate');
 }
 
 export function resetGame() {
@@ -39,9 +46,9 @@ export function resetGame() {
   finalContainer.textContent = '';
   playerChoiceContainer.textContent = '';
   computerChoiceContainer.textContent = '';
-  if (choicesContainer.classList.contains('hide')) {
-    choicesContainer.classList.remove('hide');
-  }
+  choicesContainer.classList.remove('hide');
+  playerChoiceContainer.classList.add('hide');
+  computerChoiceContainer.classList.add('hide');
   window.localStorage.setItem('playerScore', 0);
   window.localStorage.setItem('computerScore', 0);
 }

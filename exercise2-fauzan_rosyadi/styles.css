@@ -63,3 +63,37 @@ h1 {
 .hide {
     display: none;
 }
+
+.player-animate {
+    left: 0;
+    animation: playerMove 3s forwards;
+}
+
+.computer-animate {
+    right: 0;
+    animation: computerMove 3s forwards;
+}
+
+@keyframes playerMove {
+    from {
+        right: -50px;
+        opacity: 0;
+    }
+    to {
+        right: 25%;
+        opacity: 1;
+        transform: translate(10%, 0);
+    }
+}
+
+@keyframes computerMove {
+    from {
+        left: -50px;
+        opacity: 0;
+    }
+    to {
+        left: 25%;
+        opacity: 1;
+        transform: translate(-10%, 0);
+    }
+}

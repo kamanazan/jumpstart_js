@@ -14,6 +14,7 @@ body {
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-height: 400px;
 }
 
 h1 {
@@ -66,12 +67,12 @@ h1 {
 
 .player-animate {
     left: 0;
-    animation: playerMove 3s forwards;
+    animation: playerMove 0.3s forwards;
 }
 
 .computer-animate {
     right: 0;
-    animation: computerMove 3s forwards;
+    animation: computerMove 0.3s forwards;
 }
 
 @keyframes playerMove {

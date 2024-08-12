@@ -26,17 +26,23 @@ export function updateScore(playerScore, computerScore) {
 
 export function updateMessage(result, playerChoice, computerChoice) {
   resultContainer.textContent = result;
-  playerChoiceContainer.classList.remove('hide');
-  computerChoiceContainer.classList.remove('hide');
-  
+  playerChoiceContainer.classList.add('hide');
+  computerChoiceContainer.classList.add('hide');
+  playerChoiceContainer.textContent = '';
+  computerChoiceContainer.textContent = '';
   playerChoiceContainer.classList.remove('player-animate');
   computerChoiceContainer.classList.remove('computer-animate');
   
-  playerChoiceContainer.textContent = choiceIcon[playerChoice];
-  computerChoiceContainer.textContent = choiceIcon[computerChoice];
+  setTimeout(() => {
+    playerChoiceContainer.classList.remove('hide');
+    computerChoiceContainer.classList.remove('hide');
+    playerChoiceContainer.textContent = choiceIcon[playerChoice];
+    computerChoiceContainer.textContent = choiceIcon[computerChoice];
+    
+    playerChoiceContainer.classList.add('player-animate');
+    computerChoiceContainer.classList.add('computer-animate');
+  }, 100)
   
-  playerChoiceContainer.classList.add('player-animate');
-  computerChoiceContainer.classList.add('computer-animate');
 }
 
 export function resetGame() {

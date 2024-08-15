@@ -57,6 +57,8 @@ h1 {
 #history-list {
     list-style-type: none;
     padding: 0;
+    max-height: 320px;
+    overflow: scroll;
 }
 
 #history-list li {
@@ -97,6 +99,19 @@ h1 {
     font-style: italic;
 }
 
-.hide {
-    display: none !important;
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#clear-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #f30b0b;
+    color: white;
+    border: none;
+    border-radius: 4px 4px 4px 4px;
+    cursor: pointer;
+    height: 100%;
 }

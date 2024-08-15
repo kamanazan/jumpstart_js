@@ -8,35 +8,47 @@ class WeatherApp {
     this.cityInput = document.getElementById('city-input');
     this.weatherContainer = document.getElementById('weather-container');
     this.historyList = document.getElementById('history-list');
+    this.clearButton = document.getElementById('clear-btn');
     this.searchHistory = [];
     
     this.init();
   }
   
   init() {
-    // TODO: Add event listeners
-    // TODO: Check for city in URL parameters
+    const savedHistory = JSON.parse(window.localStorage.getItem('searchHistory'))
+    console.log({savedHistory})
+    if (savedHistory) {
+      this.searchHistory = savedHistory;
+      this.updateHistoryList();
+    }
     this.searchBtn.addEventListener('click', () => {
       this.handleSearch();
+      this.addToHistory(this.cityInput.value);
     });
     this.cityInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter'){
         this.handleSearch();
+        this.addToHistory(e.target.value)
       }
     });
-    
-    this.updateHistoryList();
+    this.clearButton.addEventListener('click', () => {
+      this.clearAllHistory()
+    })
+    const url = new URL(window.location);
+    const city = url.searchParams.get('city');
+    if (city) {
+      this.cityInput.value = city;
+      this.handleSearch();
+      this.addToHistory(city);
+    }
   }
   
   handleSearch() {
-    // TODO: Implement search functionality
     const city = this.cityInput.value;
-    this.cityInput.value = '';
     if (city) {
       fetchWeather(city)
         .then(data => {
           this.displayWeather(data);
-          this.addToHistory(city);
         })
         .catch(error => {
           console.error(error)
@@ -46,7 +58,6 @@ class WeatherApp {
   }
   
   displayWeather(data) {
-    // TODO: Display weather data
     if (this.weatherContainer.classList.contains('hide')) {
       this.weatherContainer.classList.remove('hide');
     }
@@ -88,37 +99,48 @@ class WeatherApp {
   }
   
   addToHistory(city) {
-    // TODO: Add city to search history
-    this.searchHistory.unshift(city)
-    const li = document.createElement('li');
-    li.textContent = city;
-    li.addEventListener('click', (e) => {
-      this.handleHistoryClick(e)
-    })
-    this.historyList.insertBefore(li, this.historyList.firstChild);
-    
+    if (!this.searchHistory.includes(city)) {
+      this.searchHistory.unshift(city)
+      window.localStorage.setItem('searchHistory', JSON.stringify(this.searchHistory))
+      const li = document.createElement('li');
+      li.textContent = city;
+      li.addEventListener('click', (e) => {
+        this.handleHistoryClick(e)
+      })
+      this.historyList.insertBefore(li, this.historyList.firstChild);
+    }
+    this.updateURL(city);
   }
   
   updateHistoryList() {
-    // TODO: Update the history list in the UI
-    for (let city in this.searchHistory) {
+    this.searchHistory.forEach( city => {
       const li = document.createElement('li');
       li.textContent = city;
       li.addEventListener('click', (e) => {
         this.handleHistoryClick(e)
       })
       this.historyList.appendChild(li)
-    }
+    })
     
   }
   
   handleHistoryClick(e) {
-    // TODO: Handle clicks on history items
-    this.updateURL(e.target.value);
+    const city = e.target.textContent;
+    this.updateURL(city);
+    this.cityInput.value = city
+    this.handleSearch();
   }
   
   updateURL(city) {
-    // TODO: Update URL with the searched city
+    const url = new URL(window.location);
+    url.searchParams.set('city', city);
+    window.history.pushState({}, '', url);
+  }
+  
+  clearAllHistory() {
+    this.historyList.innerHTML = '';
+    this.searchHistory = []
+    window.localStorage.setItem('searchHistory', '[]')
   }
 }
 
